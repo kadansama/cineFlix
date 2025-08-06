@@ -149,3 +149,12 @@ ID жанров:
 
 // Видео (трейлеры)
 `${TMDb_URL}/movie/{movie_id}/videos?api_key=${API_KEY_TMDb}&language=ru-RU`
+
+endpoints = {
+      'trending': '/trending/movie/week',
+      'top-rated': '/movie/top_rated',
+      'popular': '/movie/popular',
+      'now-playing': '/movie/now_playing'
+    };
+
+`${TMDb_URL}${endpoints[type]}?api_key=${API_KEY_TMDb}&language=ru-RU`
