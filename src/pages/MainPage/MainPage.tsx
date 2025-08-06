@@ -1,7 +1,9 @@
+import { PopularFilmList } from "../../features/popularFilms/components/PopularFilmList"
+
 export const MainPage = () =>{
     return (
         <>
-            11111111
+            <PopularFilmList/>
         </>
     )
 }
