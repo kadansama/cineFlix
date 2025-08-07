@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { MovieCarousel } from '../../features/movie/components/MovieCarousel';
+import { MovieSection } from '../../features/movie/components/MovieSection';
 import { fetchMovieTest } from '../../features/movie/api/movieApi';
 import type { Movie } from '../../features/movie/types/movie.types';
 import { PopularFilmList } from '../../features/popularFilms/components/PopularFilmList';
+import { movieSections } from '../../features/movie/config/movieSections.config';
 
 export const MainPage = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -22,10 +23,8 @@ export const MainPage = () => {
   return (
        <>
         <PopularFilmList/>
-        <MovieCarousel
-          movies={movies}
-          title="Трендовые фильмы"
-          itemsPerView={5}
+        <MovieSection 
+          sections={movieSections}
           onMovieClick={handleMovieClick}
         />
       </>

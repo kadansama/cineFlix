@@ -14,7 +14,7 @@ export const MovieCarousel = ({
   return (
     <div>
       {title && (
-        <Typography>
+        <Typography variant="h4" sx={{ mb: 2 }}>
           {title}
         </Typography>
       )}
