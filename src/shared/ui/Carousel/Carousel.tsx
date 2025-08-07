@@ -1,9 +1,9 @@
-import { useRef } from 'react';
-import type { CarouselProps } from '../../types/carousel.types'
+import { useRef, useEffect, useState } from 'react';
+import type { CarouselProps } from '../../types/carousel.types';
 import { Box, IconButton } from '@mui/material';
-import { 
-  ChevronLeft as ChevronLeftIcon, 
-  ChevronRight as ChevronRightIcon 
+import {
+  ChevronLeft as ChevronLeftIcon,
+  ChevronRight as ChevronRightIcon
 } from '@mui/icons-material';
 
 export const Carousel = <T,>({
@@ -15,11 +15,28 @@ export const Carousel = <T,>({
   height = 400
 }: CarouselProps<T>) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [itemWidth, setItemWidth] = useState(0);
+
+  useEffect(() => {
+    const updateWidth = () => {
+      if (wrapperRef.current) {
+        const containerWidth = wrapperRef.current.offsetWidth;
+        const totalGap = gap * (itemsPerView - 1);
+        const computedItemWidth = (containerWidth - totalGap) / itemsPerView;
+        setItemWidth(computedItemWidth);
+      }
+    };
+
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, [itemsPerView, gap]);
 
   const handleNext = () => {
     if (containerRef.current) {
       containerRef.current.scrollBy({
-        left: 280 + gap,
+        left: itemWidth + gap,
         behavior: 'smooth'
       });
     }
@@ -28,17 +45,14 @@ export const Carousel = <T,>({
   const handlePrev = () => {
     if (containerRef.current) {
       containerRef.current.scrollBy({
-        left: -(280 + gap),
+        left: -(itemWidth + gap),
         behavior: 'smooth'
       });
     }
   };
 
-  const containerWidth = itemsPerView * 280 + (itemsPerView - 1) * gap;
-
   return (
-    <Box sx={{ width: '100%', position: 'relative' }}>
-      {/* Стрелки - фиксированная позиция */}
+    <Box ref={wrapperRef} sx={{ width: '100%', position: 'relative' }}>
       <IconButton
         onClick={handlePrev}
         sx={{
@@ -75,34 +89,31 @@ export const Carousel = <T,>({
         <ChevronRightIcon />
       </IconButton>
 
-      {/* Контейнер с прокруткой - независимый */}
       <Box
         ref={containerRef}
         sx={{
           display: 'flex',
-          gap: gap,
+          gap: `${gap}px`,
           overflowX: 'auto',
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
           '&::-webkit-scrollbar': {
             display: 'none'
           },
-          height: height,
-          maxWidth: containerWidth
+          height: height
         }}
       >
-        {items.map((item,index) => (
+        {items.map((item, index) => (
           <Box
             key={keyExtractor(item, index)}
             sx={{
-              minWidth: 280,
-              flexShrink: 0
+              flex: `0 0 ${itemWidth}px`
             }}
           >
-            {renderItem(item,index)}
+            {renderItem(item, index)}
           </Box>
         ))}
       </Box>
     </Box>
-  )
-}
+  );
+};

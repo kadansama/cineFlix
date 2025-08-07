@@ -11,7 +11,6 @@ export interface CarouselProps<T> {
   itemsPerScroll?: number;
   gap?: number;
   height?: number | string;
-  
   // Настройки карусели
   autoPlay?: boolean;
   autoPlaySpeed?: number;

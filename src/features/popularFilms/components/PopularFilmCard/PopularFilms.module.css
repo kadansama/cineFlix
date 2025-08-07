@@ -12,3 +12,13 @@
   justify-content: center;
   font-size: 22px;
 }
+.overview {
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  white-space: normal; 
+}

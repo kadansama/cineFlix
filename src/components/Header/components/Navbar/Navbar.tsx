@@ -1,4 +1,4 @@
-import { routesConfig } from '@config/routesConfig';
+import { routesConfig } from '@/config/routesConfig';
 import { Box } from '@mui/material';
 
 
