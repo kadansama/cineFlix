@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { MovieCarousel } from '../../features/movie/components/MovieCarousel';
 import { fetchMovieTest } from '../../features/movie/api/movieApi';
 import type { Movie } from '../../features/movie/types/movie.types';
+import { PopularFilmList } from '../../features/popularFilms/components/PopularFilmList';
 
 export const MainPage = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
