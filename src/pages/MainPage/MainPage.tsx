@@ -19,12 +19,15 @@ export const MainPage = () => {
   };
 
   return (
-      <MovieCarousel
-        movies={movies}
-        title="Трендовые фильмы"
-        itemsPerView={5}
-        onMovieClick={handleMovieClick}
-      />
-      
+       <>
+        <PopularFilmList/>
+        <MovieCarousel
+          movies={movies}
+          title="Трендовые фильмы"
+          itemsPerView={5}
+          onMovieClick={handleMovieClick}
+        />
+      </>
   );
 };
+
