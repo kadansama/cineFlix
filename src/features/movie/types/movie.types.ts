@@ -12,3 +12,6 @@ export interface MovieCardProps {
 export interface MovieListProps {
     movies: Movie[];
 }
+
+
+export type MovieType = 'trending' | 'top-rated' | 'popular' | 'now-playing';
